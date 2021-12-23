@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <paulovictordev_testimonials>
+            <general>
+                <enable>1</enable>
+            </general>
+            <form>
+                <enable_name>1</enable_name>
+                <enable_designation>0</enable_designation>
+                <enable_company>0</enable_company>
+                <enable_contact>0</enable_contact>
+                <sent_message>0</sent_message>
+                <submit_message>Thanks for your testimonial.</submit_message>
+            </form>
+        </paulovictordev_testimonials>
+    </default>
+</config>
