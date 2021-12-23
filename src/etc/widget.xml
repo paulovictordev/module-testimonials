@@ -1,0 +1,12 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="PauloVictorDev\Testimonials\Block\Widget\Form" id="paulovictordev_testimonials_form">
+        <label>Testimonials Form Widget</label>
+        <description>Widget with the testimonial form settings.</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="true" visible="true" sort_order="10">
+                <label>Title</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
