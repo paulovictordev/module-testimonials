@@ -2,15 +2,14 @@
 
 /** @var PauloVictorDev\Testimonials\Block\Widget\Form $block */
 
-//if ($block->isEnabled()) :
-if (true) :
+if ($block->isEnabled()) :
     $widgetId = uniqid('', false);
     $title = $block->getData('title');
 ?>
 
     <div class="testimonials-widget" id="<?= $widgetId ?>">
         <form
-            action="#"
+            action="<?= $block->escapeUrl($block->getFormAction()) ?>"
             method="post"
             id="testimonial-form"
             enctype="multipart/form-data"
@@ -29,8 +28,7 @@ if (true) :
                                    data-validate="{required:true}"/>
                         </div>
                     </div>
-
-                <?php if (true): ?>
+                <?php if ($block->isDesignationEnabled()): ?>
                     <div class="field testimonial-designation">
                         <label class="label" for="designation"><span><?= __('Designation') ?></span></label>
                         <div class="control">
@@ -42,8 +40,7 @@ if (true) :
                         </div>
                     </div>
                 <?php endif; ?>
-
-                <?php if (true): ?>
+                <?php if ($block->isCompanyEnabled()): ?>
                     <div class="field testimonial-company">
                         <label class="label" for="company"><span><?= __('Company') ?></span></label>
                         <div class="control">
@@ -55,8 +52,7 @@ if (true) :
                         </div>
                     </div>
                 <?php endif; ?>
-
-                <?php if (true): ?>
+                <?php if ($block->isEmailEnabled()): ?>
                     <div class="field testimonial-email">
                         <label class="label" for="email"><span><?= __('Email') ?></span></label>
                         <div class="control">
@@ -68,8 +64,7 @@ if (true) :
                         </div>
                     </div>
                 <?php endif; ?>
-
-                <?php if (true): ?>
+                <?php if ($block->isPictureEnabled()): ?>
                     <div class="field testimonial-picture">
                         <label class="label" for="picture"><span><?= __('Profile picture') ?></span></label>
                         <div class="control">
@@ -82,7 +77,6 @@ if (true) :
                         </div>
                     </div>
                 <?php endif; ?>
-
                 <div class="field testimonial-message required">
                     <label class="label" for="message"><span><?= __('Message') ?></span></label>
                     <div class="control">
@@ -94,6 +88,7 @@ if (true) :
                     </div>
                 </div>
             </fieldset>
+
             <div class="actions-toolbar">
                 <div class="primary">
                     <button type="submit" title="<?= __('Submit') ?>" class="action submit primary">
