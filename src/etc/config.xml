@@ -6,10 +6,10 @@
                 <enable>1</enable>
             </general>
             <form>
-                <enable_name>1</enable_name>
+                <enable_picture>0</enable_picture>
                 <enable_designation>0</enable_designation>
                 <enable_company>0</enable_company>
-                <enable_contact>0</enable_contact>
+                <enable_email>0</enable_email>
                 <sent_message>0</sent_message>
                 <submit_message>Thanks for your testimonial.</submit_message>
             </form>
