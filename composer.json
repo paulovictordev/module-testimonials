@@ -1,0 +1,37 @@
+{
+    "name": "paulovictordev/module-testimonials",
+    "description": "Testimonials module for Magento 2.",
+    "version": "1.0.0",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^7.1",
+        "magento/product-community-edition": "^2.1"
+    },
+    "type": "magento2-module",
+    "license" : "OSL-3.0",
+    "authors" : [{
+        "name" : "Paulo Victor",
+        "email" : "dev.paulovictor@gmail.com",
+        "homepage" : "https://paulovictor.dev/"
+    }],
+    "keywords" : [
+        "magento 2",
+        "testimonials",
+        "magento 2 testimonials"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "PauloVictorDev\\Testimonials\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PauloVictorDev\\Testimonials\\Test\\": "tests/"
+        }
+    }
+}
