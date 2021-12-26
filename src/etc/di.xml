@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="PauloVictorDev\Testimonials\Api\Data\TestimonialFormInterface" type="PauloVictorDev\Testimonials\Model\TestimonialForm" />
+    <preference for="PauloVictorDev\Testimonials\Api\TestimonialFormRepositoryInterface" type="PauloVictorDev\Testimonials\Model\TestimonialFormRepository" />
+</config>
