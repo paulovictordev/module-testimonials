@@ -8,17 +8,16 @@ if ($block->isEnabled()) :
 ?>
 
     <div class="testimonials-widget" id="<?= $widgetId ?>">
-        <form
-            action="<?= $block->escapeUrl($block->getFormAction()) ?>"
-            method="post"
-            id="testimonial-form"
-            enctype="multipart/form-data"
-            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
-            data-mage-init='{"validation":{}}'
-        >
+        <form class="form testimonial"
+              id="testimonial-form"
+              action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+              method="post"
+              enctype="multipart/form-data"
+              data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+              data-mage-init='{"validation":{}}'>
             <fieldset class="fieldset">
                 <legend class="legend"><span><?= __($title) ?></span></legend><br />
-                    <div class="field testimonial-name">
+                    <div class="field testimonial-name required">
                         <label class="label" for="name"><span><?= __('Name') ?></span></label>
                         <div class="control">
                             <input name="name" id="name"
@@ -53,7 +52,7 @@ if ($block->isEnabled()) :
                     </div>
                 <?php endif; ?>
                 <?php if ($block->isEmailEnabled()): ?>
-                    <div class="field testimonial-email">
+                    <div class="field testimonial-email required">
                         <label class="label" for="email"><span><?= __('Email') ?></span></label>
                         <div class="control">
                             <input name="email" id="email"
@@ -72,7 +71,7 @@ if ($block->isEnabled()) :
                                    type="file"
                                    class="input-text"
                                    title="<?= __('Profile picture') ?>"
-                                   value=""
+                                   accept="image/jpg, image/jpeg, image/png"
                                    data-validate="{required:false}"/>
                         </div>
                     </div>

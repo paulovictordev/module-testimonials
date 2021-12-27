@@ -7,6 +7,7 @@ use Magento\Framework\Controller\ResultFactory;
 use PauloVictorDev\Testimonials\Api\Data\TestimonialFormInterface;
 use PauloVictorDev\Testimonials\Api\TestimonialFormRepositoryInterface;
 use PauloVictorDev\Testimonials\Helper\Config;
+use PauloVictorDev\Testimonials\Model\UploadImage;
 
 class Save extends \Magento\Framework\App\Action\Action
 {
@@ -19,16 +20,20 @@ class Save extends \Magento\Framework\App\Action\Action
     /** @var Config */
     protected $configHelper;
 
+    protected $uploadImage;
+
     public function __construct(
         TestimonialFormInterface $testimonialInterface,
         TestimonialFormRepositoryInterface $testimonialFormRepository,
         Config $configHelper,
+        UploadImage $uploadImage,
         Context $context
     ) {
         parent::__construct($context);
         $this->testimonialModel = $testimonialInterface;
         $this->testimonialRepository = $testimonialFormRepository;
         $this->configHelper = $configHelper;
+        $this->uploadImage = $uploadImage;
     }
 
     public function execute()
@@ -41,7 +46,6 @@ class Save extends \Magento\Framework\App\Action\Action
         }
 
         try {
-            //validar dados
             if (!$this->validate($post)) {
                 throw new \Exception(__('Please enter all required fields.'));
             }
@@ -77,13 +81,16 @@ class Save extends \Magento\Framework\App\Action\Action
         return $valid;
     }
 
-    protected function prepareData($postData)
+    protected function prepareData(array $postData): void
     {
         $this->testimonialModel->setName(filter_var($postData['name'], FILTER_SANITIZE_STRING));
         $this->testimonialModel->setDesignation(filter_var($postData['designation'], FILTER_SANITIZE_STRING));
         $this->testimonialModel->setCompany(filter_var($postData['company'], FILTER_SANITIZE_STRING));
-        $this->testimonialModel->setEmail(filter_var($postData['email'], FILTER_SANITIZE_SPECIAL_CHARS));
-//        $this->testimonialModel->setImage();
+        $this->testimonialModel->setEmail(filter_var($postData['email'], FILTER_SANITIZE_EMAIL));
+
+        $imagePath = $this->uploadImage->uploadFile('picture');
+
+        $this->testimonialModel->setImage($imagePath);
         $this->testimonialModel->setMessage(filter_var($postData['message'], FILTER_SANITIZE_SPECIAL_CHARS));
     }
 }
