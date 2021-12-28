@@ -94,15 +94,19 @@
                 <sorting>desc</sorting>
             </settings>
         </column>
-        <column name="status">
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <filter>text</filter>
+                <options class="PauloVictorDev\Testimonials\Model\Config\Source\Status" />
+                <filter>select</filter>
+                <dataType>select</dataType>
                 <label translate="true">Status</label>
             </settings>
         </column>
-        <column name="visible">
+        <column name="visible" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <filter>text</filter>
+                <options class="Magento\Config\Model\Config\Source\Yesno" />
+                <filter>select</filter>
+                <dataType>select</dataType>
                 <label translate="true">Visible</label>
             </settings>
         </column>
