@@ -3,4 +3,18 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="PauloVictorDev\Testimonials\Api\Data\TestimonialFormInterface" type="PauloVictorDev\Testimonials\Model\TestimonialForm" />
     <preference for="PauloVictorDev\Testimonials\Api\TestimonialFormRepositoryInterface" type="PauloVictorDev\Testimonials\Model\TestimonialFormRepository" />
+
+    <virtualType name="PauloVictorDev\Testimonials\Model\ResourceModel\TestimonialForm\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">testimonials_data</argument>
+            <argument name="resourceModel" xsi:type="string">PauloVictorDev\Testimonials\Model\ResourceModel\TestimonialForm</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="testimonials_index_listing_data_source" xsi:type="string">PauloVictorDev\Testimonials\Model\ResourceModel\TestimonialForm\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
