@@ -8,7 +8,7 @@ use PauloVictorDev\Testimonials\Api\Data\TestimonialFormInterface;
 
 class TestimonialForm extends AbstractModel implements TestimonialFormInterface, IdentityInterface
 {
-    const STATUS_DISABLE = 0;
+    const STATUS_DISAPPROVED = 0;
     const STATUS_PENDING = 1;
     const STATUS_APPROVED = 2;
 
@@ -190,7 +190,7 @@ class TestimonialForm extends AbstractModel implements TestimonialFormInterface,
     public function getAvailableStatus(): array
     {
         return [
-            self::STATUS_DISABLE => __('Disable'),
+            self::STATUS_DISAPPROVED => __('Disapproved'),
             self::STATUS_PENDING => __('Pending'),
             self::STATUS_APPROVED => __('Approved')
         ];

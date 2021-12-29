@@ -8,6 +8,9 @@ use PauloVictorDev\Testimonials\Model\ResourceModel\TestimonialForm as Testimoni
 
 class Collection extends AbstractCollection
 {
+    /** @var string  */
+    protected $_idFieldName = 'entity_id';
+
     protected function _construct()
     {
         $this->_init(TestimonialFormModel::class, TestimonialFormResourceModel::class);

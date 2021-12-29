@@ -39,6 +39,9 @@
         <settings>
             <sticky>true</sticky>
         </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
         <filters name="listing_filters">
             <filterSelect name="store_id" provider="${ $.parentName }">
                 <settings>
@@ -62,6 +65,34 @@
                     <url path="*/*/massdelete"/>
                     <type>delete</type>
                     <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="enable">
+                <settings>
+                    <url path="*/*/massenable"/>
+                    <type>enable</type>
+                    <label translate="true">Enable</label>
+                </settings>
+            </action>
+            <action name="disable">
+                <settings>
+                    <url path="*/*/massdisable"/>
+                    <type>disable</type>
+                    <label translate="true">Disable</label>
+                </settings>
+            </action>
+            <action name="approve">
+                <settings>
+                    <url path="*/*/massapprove"/>
+                    <type>approve</type>
+                    <label translate="true">Approve</label>
+                </settings>
+            </action>
+            <action name="disapprove">
+                <settings>
+                    <url path="*/*/massdisapprove"/>
+                    <type>disapprove</type>
+                    <label translate="true">Disapprove</label>
                 </settings>
             </action>
         </massaction>
