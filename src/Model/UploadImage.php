@@ -2,6 +2,7 @@
 
 namespace PauloVictorDev\Testimonials\Model;
 
+use Magento\Framework\File\Uploader;
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\MediaStorage\Model\File\UploaderFactory;
@@ -44,6 +45,10 @@ class UploadImage
             $result = $uploader->save($basePath);
             return $result['file'];
         } catch (\Exception $e) {
+            if ($e->getCode() == Uploader::TMP_NAME_EMPTY) {
+                return '';
+            }
+
             throw new \Exception($e->getMessage());
         }
     }
