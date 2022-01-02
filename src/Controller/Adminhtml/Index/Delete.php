@@ -4,6 +4,7 @@ namespace PauloVictorDev\Testimonials\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use PauloVictorDev\Testimonials\Model\Image;
 use PauloVictorDev\Testimonials\Api\TestimonialFormRepositoryInterface;
 
 class Delete extends Action
@@ -11,12 +12,17 @@ class Delete extends Action
     /** @var TestimonialFormRepositoryInterface  */
     protected $testimonialFormRepository;
 
+    /** @var Image  */
+    protected $imageModel;
+
     public function __construct(
         TestimonialFormRepositoryInterface $testimonialFormRepository,
+        Image $imageModel,
         Context $context
     ) {
         parent::__construct($context);
         $this->testimonialFormRepository = $testimonialFormRepository;
+        $this->imageModel = $imageModel;
     }
 
     public function execute()
@@ -27,7 +33,13 @@ class Delete extends Action
 
         if ($testimonialId) {
             try {
-                $this->testimonialFormRepository->deleteById($testimonialId);
+                $testimonial = $this->testimonialFormRepository->getById($testimonialId);
+                $this->testimonialFormRepository->delete($testimonial);
+
+                if ($testimonial->getImage()) {
+                    $this->imageModel->deleteFile($testimonial->getImage());
+                }
+
                 $this->messageManager->addSuccessMessage('Testimonial was deleted.');
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {

@@ -115,9 +115,9 @@ class TestimonialForm extends AbstractModel implements TestimonialFormInterface,
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDesignation(): string
+    public function getDesignation(): ?string
     {
         return $this->getData(self::DESIGNATION);
     }
@@ -132,9 +132,9 @@ class TestimonialForm extends AbstractModel implements TestimonialFormInterface,
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCompany(): string
+    public function getCompany(): ?string
     {
         return $this->getData(self::COMPANY);
     }
@@ -149,9 +149,9 @@ class TestimonialForm extends AbstractModel implements TestimonialFormInterface,
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->getData(self::PICTURE);
     }

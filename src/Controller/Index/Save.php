@@ -3,11 +3,11 @@
 namespace PauloVictorDev\Testimonials\Controller\Index;
 
 use Magento\Framework\App\Action\Context;
+use PauloVictorDev\Testimonials\Model\Image;
+use PauloVictorDev\Testimonials\Helper\Config;
 use Magento\Framework\Controller\ResultFactory;
 use PauloVictorDev\Testimonials\Api\Data\TestimonialFormInterface;
 use PauloVictorDev\Testimonials\Api\TestimonialFormRepositoryInterface;
-use PauloVictorDev\Testimonials\Helper\Config;
-use PauloVictorDev\Testimonials\Model\UploadImage;
 
 class Save extends \Magento\Framework\App\Action\Action
 {
@@ -20,20 +20,21 @@ class Save extends \Magento\Framework\App\Action\Action
     /** @var Config */
     protected $configHelper;
 
-    protected $uploadImage;
+    /** @var Image  */
+    protected $imageModel;
 
     public function __construct(
         TestimonialFormInterface $testimonialInterface,
         TestimonialFormRepositoryInterface $testimonialFormRepository,
         Config $configHelper,
-        UploadImage $uploadImage,
+        Image $imageModel,
         Context $context
     ) {
         parent::__construct($context);
         $this->testimonialModel = $testimonialInterface;
         $this->testimonialRepository = $testimonialFormRepository;
         $this->configHelper = $configHelper;
-        $this->uploadImage = $uploadImage;
+        $this->imageModel = $imageModel;
     }
 
     public function execute()
@@ -88,7 +89,7 @@ class Save extends \Magento\Framework\App\Action\Action
         $this->testimonialModel->setCompany(filter_var($postData['company'], FILTER_SANITIZE_STRING));
         $this->testimonialModel->setEmail(filter_var($postData['email'], FILTER_SANITIZE_EMAIL));
 
-        $imagePath = $this->uploadImage->uploadFile('picture');
+        $imagePath = $this->imageModel->uploadFile('picture');
 
         $this->testimonialModel->setImage($imagePath);
         $this->testimonialModel->setMessage(filter_var($postData['message'], FILTER_SANITIZE_SPECIAL_CHARS));

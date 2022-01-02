@@ -70,9 +70,9 @@ interface TestimonialFormInterface
     public function setEmail(string $email);
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDesignation(): string;
+    public function getDesignation(): ?string;
 
     /**
      * @param string $designation
@@ -81,9 +81,9 @@ interface TestimonialFormInterface
     public function setDesignation(string $designation);
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCompany(): string;
+    public function getCompany(): ?string;
 
     /**
      * @param string $company
@@ -92,9 +92,9 @@ interface TestimonialFormInterface
     public function setCompany(string $company);
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getImage(): string;
+    public function getImage(): ?string;
 
     /**
      * @param string $image

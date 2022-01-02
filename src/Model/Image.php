@@ -7,12 +7,14 @@ use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\MediaStorage\Model\File\UploaderFactory;
 
-class UploadImage
+class Image
 {
-    const IMAGE_PATH = 'testimonials/image/';
+    const IMAGE_PATH = 'testimonials/image';
 
+    /** @var UploaderFactory  */
     protected $uploaderFactory;
 
+    /** @var Filesystem  */
     protected $filesystem;
 
     public function __construct(
@@ -27,7 +29,6 @@ class UploadImage
     {
         try {
             $uploader = $this->uploaderFactory->create(['fileId' => $input]);
-
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
             $uploader->setAllowCreateFolders(true);
@@ -49,6 +50,20 @@ class UploadImage
                 return '';
             }
 
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function deleteFile(string $imagePath): void
+    {
+        try {
+            $mediaWrite = $this->filesystem->getDirectoryWrite(DirectoryList::MEDIA);
+            $pathImageDelete = $mediaWrite->getAbsolutePath(self::IMAGE_PATH . $imagePath);
+
+            if (is_file($pathImageDelete)) {
+                $mediaWrite->delete($pathImageDelete);
+            }
+        } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
     }
