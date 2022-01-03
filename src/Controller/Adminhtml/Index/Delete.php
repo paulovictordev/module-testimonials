@@ -27,7 +27,7 @@ class Delete extends Action
 
     public function execute()
     {
-        $testimonialId = $this->getRequest()->getParam("id");
+        $testimonialId = $this->getRequest()->getParam("entity_id");
 
         $resultRedirect = $this->resultRedirectFactory->create();
 

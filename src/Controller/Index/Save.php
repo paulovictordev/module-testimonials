@@ -6,6 +6,8 @@ use Magento\Framework\App\Action\Context;
 use PauloVictorDev\Testimonials\Model\Image;
 use PauloVictorDev\Testimonials\Helper\Config;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\App\Request\DataPersistorInterface;
 use PauloVictorDev\Testimonials\Api\Data\TestimonialFormInterface;
 use PauloVictorDev\Testimonials\Api\TestimonialFormRepositoryInterface;
 
@@ -17,6 +19,9 @@ class Save extends \Magento\Framework\App\Action\Action
     /** @var TestimonialFormRepositoryInterface */
     protected $testimonialRepository;
 
+    /** @var DataPersistorInterface */
+    protected $dataPersistor;
+
     /** @var Config */
     protected $configHelper;
 
@@ -26,6 +31,7 @@ class Save extends \Magento\Framework\App\Action\Action
     public function __construct(
         TestimonialFormInterface $testimonialInterface,
         TestimonialFormRepositoryInterface $testimonialFormRepository,
+        DataPersistorInterface $dataPersistor,
         Config $configHelper,
         Image $imageModel,
         Context $context
@@ -33,6 +39,7 @@ class Save extends \Magento\Framework\App\Action\Action
         parent::__construct($context);
         $this->testimonialModel = $testimonialInterface;
         $this->testimonialRepository = $testimonialFormRepository;
+        $this->dataPersistor = $dataPersistor;
         $this->configHelper = $configHelper;
         $this->imageModel = $imageModel;
     }
@@ -54,8 +61,12 @@ class Save extends \Magento\Framework\App\Action\Action
             $this->prepareData($post);
             $this->testimonialRepository->save($this->testimonialModel);
             $this->messageManager->addSuccessMessage(__($this->configHelper->getSubmitMessage()));
+            $this->dataPersistor->clear('testimonialform_data');
+        } catch (LocalizedException $e) {
+            $this->messageManager->addErrorMessage($e->getMessage());
         } catch (\Exception $e) {
-            $this->messageManager->addErrorMessage(__($e->getMessage()));
+            $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the Testimonial.'));
+            $this->dataPersistor->set('testimonialform_data', $this->testimonialModel);
         }
 
         return $resultRedirect->setRefererUrl();

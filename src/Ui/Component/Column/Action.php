@@ -35,14 +35,14 @@ class Action extends Column
                     'edit' => [
                         'href' => $this->urlBuilder->getUrl(
                             static::URL_EDIT_PATH,
-                            ['id' => $item['entity_id']]
+                            ['entity_id' => $item['entity_id']]
                         ),
                         'label' => __('Edit')
                     ],
                     'delete' => [
                         'href' => $this->urlBuilder->getUrl(
                             static::URL_DELETE_PATH,
-                            ['id' => $item['entity_id']]
+                            ['entity_id' => $item['entity_id']]
                         ),
                         'label' => __('Delete'),
                         'confirm' => [
