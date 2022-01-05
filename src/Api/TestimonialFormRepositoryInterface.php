@@ -44,4 +44,14 @@ interface TestimonialFormRepositoryInterface
      * @throws LocalizedException
      */
     public function deleteById(int $testimonialId): ?bool;
+
+    /**
+     * Retrieve the Testimonials
+     *
+     * @param int $limit
+     * @return array
+     * @throws NoSuchEntityException if record is not found.
+     * @throws LocalizedException
+     */
+    public function getTestimonials(int $limit = 3): array;
 }

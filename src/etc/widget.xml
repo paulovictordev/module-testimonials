@@ -9,4 +9,32 @@
             </parameter>
         </parameters>
     </widget>
+
+    <widget class="PauloVictorDev\Testimonials\Block\Widget\Show" id="paulovictordev_testimonials_show">
+        <label>Testimonials Show Widget</label>
+        <description>Widget for displaying testimonials.</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="true" visible="true" sort_order="10">
+                <label>Title</label>
+                <description>Widget Title.</description>
+            </parameter>
+            <parameter name="items_number" xsi:type="text" required="true" visible="true" sort_order="20">
+                <label>Number of testimonials</label>
+                <description>Visible testimonial number.</description>
+                <value>3</value>
+            </parameter>
+            <parameter name="type" xsi:type="select" required="true" visible="true" sort_order="30">
+                <label>Widget type</label>
+                <description>Show type for the testimonial.</description>
+                <options>
+                    <option name="list" value="list" selected="true">
+                        <label>List</label>
+                    </option>
+                    <option name="slide" value="slide">
+                        <label>Slide</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
 </widgets>

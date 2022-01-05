@@ -133,14 +133,14 @@ class Image
         $mediaUrl = $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
         $filePath = $mediaRead->getRelativePath($pathImage);
 
-        $ultimaBarra = strrpos($pathImage, '/');
-        $nomeArquivo = substr($pathImage, $ultimaBarra + 1);
+        $pointer = strrpos($pathImage, '/');
+        $fileName = substr($pathImage, $pointer + 1);
 
         $imageUrl = $mediaUrl . $filePath;
 
         return [
             [
-                'name' => $nomeArquivo,
+                'name' => $fileName,
                 'url' => $imageUrl
             ]
         ];
