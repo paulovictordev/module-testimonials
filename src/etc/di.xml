@@ -17,4 +17,26 @@
             </argument>
         </arguments>
     </type>
+
+    <!-- Upload Image   -->
+    <virtualType name="PauloVictorDev\Testimonials\ImageUpload" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">testimonials/tmp/image</argument>
+            <argument name="basePath" xsi:type="string">testimonials/image</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="maxFileSize" xsi:type="array">
+                <item name="size" xsi:type="string">1048576</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="PauloVictorDev\Testimonials\Controller\Adminhtml\Index\Image\Uploader">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">PauloVictorDev\Testimonials\ImageUpload</argument>
+        </arguments>
+    </type>
+
 </config>

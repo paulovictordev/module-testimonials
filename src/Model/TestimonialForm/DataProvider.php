@@ -2,6 +2,7 @@
 
 namespace PauloVictorDev\Testimonials\Model\TestimonialForm;
 
+use PauloVictorDev\Testimonials\Model\Image;
 use Magento\Ui\DataProvider\AbstractDataProvider;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use PauloVictorDev\Testimonials\Model\ResourceModel\TestimonialForm\CollectionFactory;
@@ -14,17 +15,22 @@ class DataProvider extends AbstractDataProvider
     /** @var DataPersistorInterface */
     protected $dataPersistor;
 
+    /** @var Image  */
+    protected $imageModel;
+
     public function __construct(
         $name,
         $primaryFieldName,
         $requestFieldName,
         CollectionFactory $collectionFactory,
         DataPersistorInterface $dataPersistor,
+        Image $imageModel,
         array $meta = [],
         array $data = []
     ) {
         $this->collection = $collectionFactory->create();
         $this->dataPersistor = $dataPersistor;
+        $this->imageModel = $imageModel;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
@@ -36,6 +42,11 @@ class DataProvider extends AbstractDataProvider
 
         $items = $this->collection->getItems();
         foreach ($items as $item) {
+            $imagePath = $item->getData('image');
+            if (!empty($imagePath)) {
+                $image = $this->imageModel->getImageFile($imagePath);
+                $item['image'] = $image;
+            }
             $this->loadedData[$item->getId()]['testimonial'] = $item->getData();
         }
 

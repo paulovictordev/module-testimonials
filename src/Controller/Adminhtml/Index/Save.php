@@ -3,8 +3,9 @@
 namespace PauloVictorDev\Testimonials\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
-use Magento\Framework\App\Request\DataPersistorInterface;
+use PauloVictorDev\Testimonials\Model\Image;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\App\Request\DataPersistorInterface;
 use PauloVictorDev\Testimonials\Api\Data\TestimonialFormInterface;
 use PauloVictorDev\Testimonials\Api\TestimonialFormRepositoryInterface;
 
@@ -19,15 +20,19 @@ class Save extends Action
     /** @var DataPersistorInterface  */
     protected $dataPersistor;
 
+    protected $imageModel;
+
     public function __construct(
         Action\Context $context,
         TestimonialFormInterface $testimonialInterface,
         TestimonialFormRepositoryInterface $testimonialFormRepository,
-        DataPersistorInterface $dataPersistor
+        DataPersistorInterface $dataPersistor,
+        Image $imageModel
     ) {
         $this->testimonialModel = $testimonialInterface;
         $this->testimonialRepository = $testimonialFormRepository;
         $this->dataPersistor = $dataPersistor;
+        $this->imageModel = $imageModel;
         parent::__construct($context);
     }
 
@@ -72,13 +77,37 @@ class Save extends Action
     protected function prepareData(array $data)
     {
         $postData = $data['testimonial'];
-        $this->testimonialModel->setName(filter_var($postData['name'], FILTER_SANITIZE_STRING));
-        $this->testimonialModel->setDesignation(filter_var($postData['designation'], FILTER_SANITIZE_STRING));
-        $this->testimonialModel->setCompany(filter_var($postData['company'], FILTER_SANITIZE_STRING));
-        $this->testimonialModel->setEmail(filter_var($postData['email'], FILTER_SANITIZE_EMAIL));
-        $this->testimonialModel->setImage($postData['image']);
-        $this->testimonialModel->setMessage(filter_var($postData['message'], FILTER_SANITIZE_SPECIAL_CHARS));
 
+        $this->testimonialModel->setName(filter_var($postData['name'], FILTER_SANITIZE_STRING));
+
+        if (!empty($postData['designation'])) {
+            $this->testimonialModel->setDesignation(filter_var($postData['designation'], FILTER_SANITIZE_STRING));
+        }
+
+        if (!empty($postData['company'])) {
+            $this->testimonialModel->setCompany(filter_var($postData['company'], FILTER_SANITIZE_STRING));
+        }
+
+        if (!empty($postData['email'])) {
+            $this->testimonialModel->setEmail(filter_var($postData['email'], FILTER_SANITIZE_EMAIL));
+        }
+
+        $testimonialImage = $this->testimonialModel->getImage() ?? '';
+        $imageName = $postData['image'][0]['name'] ?? '';
+
+        if (!empty($imageName)) {
+            $imagePath = $this->imageModel->saveFile($imageName);
+            $this->testimonialModel->setImage($imagePath);
+
+            if (!!$testimonialImage && $testimonialImage != $imagePath) {
+                $this->imageModel->deleteFile($testimonialImage);
+            }
+        } elseif ($testimonialImage) {
+            $this->imageModel->deleteFile($this->testimonialModel->getImage());
+            $this->testimonialModel->setImage('');
+        }
+
+        $this->testimonialModel->setMessage(filter_var($postData['message'], FILTER_SANITIZE_SPECIAL_CHARS));
         $this->dataPersistor->set('testimonialform_data', $this->testimonialModel);
 
         return $this;

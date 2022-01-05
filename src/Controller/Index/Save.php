@@ -96,13 +96,22 @@ class Save extends \Magento\Framework\App\Action\Action
     protected function prepareData(array $postData): void
     {
         $this->testimonialModel->setName(filter_var($postData['name'], FILTER_SANITIZE_STRING));
-        $this->testimonialModel->setDesignation(filter_var($postData['designation'], FILTER_SANITIZE_STRING));
-        $this->testimonialModel->setCompany(filter_var($postData['company'], FILTER_SANITIZE_STRING));
-        $this->testimonialModel->setEmail(filter_var($postData['email'], FILTER_SANITIZE_EMAIL));
+
+        if (!empty($postData['designation'])) {
+            $this->testimonialModel->setDesignation(filter_var($postData['designation'], FILTER_SANITIZE_STRING));
+        }
+
+        if (!empty($postData['company'])) {
+            $this->testimonialModel->setCompany(filter_var($postData['company'], FILTER_SANITIZE_STRING));
+        }
+
+        if (!empty($postData['email'])) {
+            $this->testimonialModel->setEmail(filter_var($postData['email'], FILTER_SANITIZE_EMAIL));
+        }
 
         $imagePath = $this->imageModel->uploadFile('picture');
-
         $this->testimonialModel->setImage($imagePath);
+
         $this->testimonialModel->setMessage(filter_var($postData['message'], FILTER_SANITIZE_SPECIAL_CHARS));
     }
 }
