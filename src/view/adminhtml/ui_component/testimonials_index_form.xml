@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">testimonials_index_form.testimonials_index_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Testimonial Information</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+    </argument>
+
+    <settings>
+        <ajaxSave>true</ajaxSave>
+        <ajaxSaveType>simple</ajaxSaveType>
+        <buttons>
+            <button name="back" class="PauloVictorDev\Testimonials\Block\Adminhtml\Index\Button\Back"/>
+            <button name="save" class="PauloVictorDev\Testimonials\Block\Adminhtml\Index\Button\Save"/>
+            <button name="delete" class="PauloVictorDev\Testimonials\Block\Adminhtml\Index\Button\Delete"/>
+            <button name="save_and_continue" class="PauloVictorDev\Testimonials\Block\Adminhtml\Index\Button\SaveAndContinue"/>
+        </buttons>
+        <dataScope>data</dataScope>
+        <layout>
+            <type>tabs</type>
+        </layout>
+        <deps>
+            <dep>testimonials_index_form.testimonials_index_form_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="testimonials_index_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="testimonials/index/save"/>
+        </settings>
+        <dataProvider class="PauloVictorDev\Testimonials\Model\TestimonialForm\DataProvider" name="testimonials_index_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="testimonial">
+        <settings>
+            <label translate="true">Testimonial Information Dois</label>
+        </settings>
+
+        <field name="entity_id" formElement="input">
+            <settings>
+                <label translate="true">Entity id</label>
+                <dataType>text</dataType>
+                <visible>false</visible>
+            </settings>
+        </field>
+
+        <field name="name" formElement="input">
+            <settings>
+                <required>true</required>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <label translate="true">Name</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+
+        <field name="email" formElement="input">
+            <settings>
+                <required>true</required>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <label translate="true">Email</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+
+        <field name="designation" formElement="input">
+            <settings>
+                <label translate="true">Designation</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+
+        <field name="company" formElement="input">
+            <settings>
+                <label translate="true">Company</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+
+        <field name="image" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">testimonials</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <dataType>string</dataType>
+                <label translate="true">Image</label>
+                <visible>true</visible>
+                <required>false</required>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="testimonials/index_image/uploader"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <allowedExtensions>jpg jpeg png</allowedExtensions>
+                        <maxFileSize>1048576</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+
+        <field name="message" formElement="textarea">
+            <settings>
+                <required>true</required>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <label translate="true">Message</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+    </fieldset>
+</form>

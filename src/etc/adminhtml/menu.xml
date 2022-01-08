@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="PauloVictorDev_Testimonials::testimonials" title="Testimonials" translate="title" module="PauloVictorDev_Testimonials" sortOrder="100" parent="Magento_Customer::customer" resource="PauloVictorDev_Testimonials::testimonials"/>
+        <add id="PauloVictorDev_Testimonials::testimonials_manage" title="All Testimonials" translate="title" module="PauloVictorDev_Testimonials" sortOrder="10" parent="PauloVictorDev_Testimonials::testimonials" action="testimonials/index" resource="PauloVictorDev_Testimonials::testimonials"/>
+    </menu>
+</config>

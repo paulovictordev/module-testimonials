@@ -1,0 +1,61 @@
+<?php
+
+/** @var PauloVictorDev\Testimonials\Block\Widget\Show $block */
+
+if ($block->isEnabled()) :
+    $widgetId = uniqid('', false);
+    $title = $block->getData('title');
+    $testimonials = $block->getTestimonials();
+    $type = $block->getData('type');
+?>
+
+    <div class="widget block testimonials-<?= $type ?>" id="id_<?= $widgetId ?>">
+        <div class="content-heading">
+            <h2 class="title" role="heading"><?= $block->escapeHtml($title) ?></h2>
+        </div>
+
+        <div class="block-content">
+            <div class="testimonials-wrapper" id="testimonial">
+                <?php
+                /** @var PauloVictorDev\Testimonials\Api\Data\TestimonialFormInterface $testimonial*/
+                foreach ($testimonials as $testimonial): ?>
+                    <figure class="testimonial">
+                        <blockquote>
+                            <p class="testimonial-message"><?= $block->escapeHtml($testimonial->getMessage()); ?></p>
+                        </blockquote>
+                        <div class="info">
+                            <?php if ($block->isPictureEnabled()): ?>
+                                <img src="<?= $testimonial->getImage() ? $block->getTestimonialImageUrl($testimonial->getImage()) : $block->getTestimonialImageEmpty() ?>" alt="Profile image" />
+                            <?php endif; ?>
+                            <div class="author">
+                                <h4><?= $block->escapeHtml($testimonial->getName()) ?></h4>
+                                <?php if ($block->isDesignationEnabled() && $testimonial->getDesignation()): ?>
+                                    <span><?= $block->escapeHtml($testimonial->getDesignation()) ?></span>
+                                <?php endif; ?>
+                                <?php if ($block->isCompanyEnabled() && $testimonial->getCompany()): ?>
+                                    <span><?= $block->escapeHtml($testimonial->getCompany()) ?></span>
+                                <?php endif; ?>
+                                <?php if ($block->isEmailEnabled() && $testimonial->getEmail()): ?>
+                                    <span><?= $block->escapeHtml($testimonial->getEmail()) ?></span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </figure>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+
+    <?php if ($type == 'slide'): ?>
+        <script type="text/x-magento-init">
+            {
+                "#id_<?= /** @noEscape */ $widgetId ?>": {
+                    "paulovictordev/testimonial" :{
+                        "idWidget": "<?= /** @noEscape */ $widgetId ?>"
+                    }
+                }
+            }
+        </script>
+    <?php endif; ?>
+
+<?php endif; ?>

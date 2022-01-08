@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="testimonials_data" resource="default" engine="innodb" comment="Testimonials Table">
+        <column xsi:type="int"
+                name="entity_id"
+                padding="10"
+                unsigned="true"
+                nullable="false"
+                identity="true"
+                comment="Entity ID." />
+
+        <column xsi:type="smallint"
+                name="status"
+                default="1"
+                comment="Testimonial status. 0-Disable, 1-Pending, 2-Approved" />
+
+        <column xsi:type="boolean"
+                name="visible"
+                default="0"
+                comment="Testimonial visible." />
+
+        <column xsi:type="varchar"
+                name="name"
+                nullable="false"
+                length="120"
+                comment="User name." />
+
+        <column xsi:type="varchar"
+                name="email"
+                length="120"
+                comment="User email." />
+
+        <column xsi:type="varchar"
+                name="designation"
+                nullable="true"
+                length="120"
+                comment="User Designation." />
+
+        <column xsi:type="varchar"
+                name="company"
+                nullable="true"
+                length="255"
+                comment="User Company." />
+
+        <column xsi:type="text"
+                name="image"
+                nullable="true"
+                comment="User picture path." />
+
+        <column xsi:type="text"
+                name="message"
+                nullable="false"
+                comment="User message." />
+
+        <column xsi:type="timestamp" name="created_at"
+                on_update="false"
+                nullable="false"
+                default="CURRENT_TIMESTAMP"
+                comment="Testimonial creation date." />
+
+        <column xsi:type="timestamp" name="updated_at"
+                on_update="true"
+                nullable="false"
+                default="CURRENT_TIMESTAMP"
+                comment="Testimonial update date." />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id" />
+        </constraint>
+
+    </table>
+</schema>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="PauloVictorDev\Testimonials\Api\Data\TestimonialFormInterface" type="PauloVictorDev\Testimonials\Model\TestimonialForm" />
+    <preference for="PauloVictorDev\Testimonials\Api\TestimonialFormRepositoryInterface" type="PauloVictorDev\Testimonials\Model\TestimonialFormRepository" />
+
+    <virtualType name="PauloVictorDev\Testimonials\Model\ResourceModel\TestimonialForm\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">testimonials_data</argument>
+            <argument name="resourceModel" xsi:type="string">PauloVictorDev\Testimonials\Model\ResourceModel\TestimonialForm</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="testimonials_index_listing_data_source" xsi:type="string">PauloVictorDev\Testimonials\Model\ResourceModel\TestimonialForm\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Upload Image   -->
+    <virtualType name="PauloVictorDev\Testimonials\ImageUpload" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">testimonials/tmp/image</argument>
+            <argument name="basePath" xsi:type="string">testimonials/image</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="maxFileSize" xsi:type="array">
+                <item name="size" xsi:type="string">1048576</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="PauloVictorDev\Testimonials\Controller\Adminhtml\Index\Image\Uploader">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">PauloVictorDev\Testimonials\ImageUpload</argument>
+        </arguments>
+    </type>
+
+</config>
